@@ -1,0 +1,18 @@
+.competition-card {
+    background-color:#A3F500;
+    color: rgb(0, 0, 0);
+    max-width: 300px;
+    border-radius: 40px;
+    padding: 20px;
+}
+.card-position-competition {
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    display: flex;
+    height: 70vh;
+}
+.btn-primary {
+    background-color: #00AEEF;
+    border: none;
+    font-weight: bold;
+  }

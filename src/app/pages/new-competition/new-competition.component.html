@@ -6,20 +6,21 @@
             <form>
                 <div class="mb-3">
                     <label class="form-label">Nombre del torneo</label> 
-                    <input type="text" class="form-control" placeholder="Ingresa el nombre">
+                    <input type="text" class="form-control" placeholder="Ingresa el nombre" [(ngModel)]="tournament.name" name="tournamentName"required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label ">CANTIDAD DE TABLAS</label>
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" [(ngModel)]="tournament.numberOfGroups" name="tablesNumber"required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">NUMERO MAXIMO DE PARTICIPANTES POR TABLA</label>
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" [(ngModel)]="tournament.maxParticipantsPerGroup" name="participantsNumber"required>
                 </div>
-                    <button type="submit" class="btn btn-primary mt-3">Crear torneo</button>
+                    <button type="submit" class="btn btn-primary mt-3" (click)="CreateTournament()">Crear torneo</button>
             </form>
         </div>
     </div> 
 </div>
      
 <app-footer></app-footer>
+ 

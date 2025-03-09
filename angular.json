@@ -32,7 +32,6 @@
             "scripts": []
           },
           "configurations": {
-            
             "production": {
               "fileReplacements": [
                 {
@@ -40,14 +39,24 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractLicenses": true,
-              "namedChunks": false,
-              "aot": true,
-              "scripts": [],
-              "styles": []
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"

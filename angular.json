@@ -51,6 +51,24 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractLicenses": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractCss": true,
+              "scripts": [],
+              "styles": [],
+              "vendorChunk": false
             }
           },
           "defaultConfiguration": "production"
@@ -63,6 +81,9 @@
             },
             "development": {
               "buildTarget": "Beyblade-tournament-administration:build:development"
+            },
+            "staging": {
+              "buildTarget": "Beyblade-tournament-administration:build:staging"
             }
           },
           "defaultConfiguration": "development"

@@ -9,7 +9,7 @@
         <div class="card-body">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-              <label for="name" class="form-label">nombre completo</label>
+              <label for="name" class="form-label">nombre</label>
               <input 
                 type="text" 
                 class="form-control" 
@@ -29,19 +29,19 @@
             </div>
 
             <div class="mb-4">
-              <label for="state" class="form-label">Estado</label>
+              <label for="region" class="form-label">Estado</label>
               <select 
                 class="form-select"
-                id="state"
-                formControlName="state"
-                [class.is-invalid]="registerForm.get('state')?.invalid && registerForm.get('state')?.touched">
+                id="region"
+                formControlName="region"
+                [class.is-invalid]="registerForm.get('region')?.invalid && registerForm.get('region')?.touched">
                 <option value="" disabled selected>Selecciona tu estado</option>
-                <option *ngFor="let state of statesMexico" [value]="state">
-                  {{ state }}
+                <option *ngFor="let region of statesMexico" [value]="region">
+                  {{ region }}
                 </option>
               </select>
               
-              <div *ngIf="registerForm.get('state')?.invalid && registerForm.get('state')?.touched" 
+              <div *ngIf="registerForm.get('region')?.invalid && registerForm.get('region')?.touched" 
                    class="invalid-feedback">
                 Por favor selecciona un estado
               </div>

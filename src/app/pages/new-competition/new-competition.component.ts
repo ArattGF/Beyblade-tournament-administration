@@ -25,19 +25,19 @@ export class NewCompetitionComponent {
 
 
   CreateTournament(): void {
-
-
-    this.competitionService.CreateTournament(this.tournament).then((data: any) => {
-
-      console.log(data);
-      HeaderComponent.showAlert(data.message, 'rgb(163, 245, 0)', 'black');
-
-      // Redirect to the home page
-      // this.router.navigate(['/new-competition'], { state: {message: data.message}  });
+    this.competitionService.CreateTournament(this.tournament).then((dataTournament: any) => {
+      HeaderComponent.showAlert(dataTournament.message, 'rgb(163, 245, 0)', 'black');
+      this.competitionService.CreateGroups(dataTournament.tournamentID).then((dataGroup: any) => {
+        HeaderComponent.showAlert(dataGroup.message, 'rgb(163, 245, 0)', 'black');
+        this.router.navigate(['/register'], {queryParams: {tournamentId: dataGroup.tournamentID}});
+      }
+      ).catch((error: any) => {
+        HeaderComponent.showAlert(error.error, 'rgb(205, 46, 25)', 'black');
+      });
     }).catch((error: any) => {
       HeaderComponent.showAlert(error.error, 'rgb(205, 46, 25)', 'black');
 
-    });
+    }); 
 
   }
-}
+} 

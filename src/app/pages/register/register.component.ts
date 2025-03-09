@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { RegisterService } from './register.service';
 
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, FooterComponent],
+  imports: [CommonModule, FormsModule,ReactiveFormsModule, HeaderComponent, FooterComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -47,21 +48,40 @@ export class RegisterComponent {
     'Yucatán',
     'Zacatecas'
   ];
+  isSubmitting = false;
 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, private readonly registerService: RegisterService){
     this.registerForm = this.fb.group({
       name:['', [Validators.required, Validators.minLength(3)]],
-      state: ['', Validators.required]
+      region: ['', Validators.required]
     });
   }
 
 
 
-  onSubmit(){
+  onSubmit() {
+    if (this.isSubmitting) return;
+
+    this.isSubmitting = true;
+
     if (this.registerForm.valid) {
-      console.log('Datos registrados:', this.registerForm.value);
-      alert('Registro exitoso!');
-      this.registerForm.reset();
+        this.registerService.CreateParticipant({
+            ...this.registerForm.value,
+            tournamentID: this.getTournamentID()
+        }).then(dataParticipant => {
+            HeaderComponent.showAlert(dataParticipant.message);
+            this.isSubmitting = false;  // Restablece en éxito
+            this.registerForm.reset();
+        }).catch((error: any) => {
+            HeaderComponent.showAlert(error.error, 'rgb(205, 46, 25)', 'black');
+            this.isSubmitting = false;  // ¡Agrega esto en el catch!
+        });
+    } else {
+        this.isSubmitting = false;  // Si el formulario es inválido
     }
+}
+  getTournamentID(): string{
+    return new URLSearchParams(window.location.search).get('tournamentId') || '';
   }
 }
+ 

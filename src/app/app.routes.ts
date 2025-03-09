@@ -11,14 +11,14 @@ import { StartFinalsComponent } from './pages/start-finals/start-finals.componen
 
 
 export const routes: Routes = [
-    {path: 'battle-detail', component: BattleDetailComponent},
     {path: 'login', component: LoginComponent},
     {path: 'new-competition', component: NewCompetitionComponent},
+    {path: 'register', component: RegisterComponent}, 
     {path: 'group-stage', component: GroupStageComponent},
+    {path: 'battle-detail', component: BattleDetailComponent},
     {path: 'final-result', component: FinalResultComponent},
     {path: 'points-tables', component: PointsTablesComponent},
     {path: 'final', component: FinalResultComponent}, 
-    {path: 'register', component: RegisterComponent}, 
     {path: 'verify-combat', component: VerifyCombatComponent},
     {path: 'start-finals', component: StartFinalsComponent}
 

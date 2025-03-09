@@ -18,3 +18,4 @@ export class FinalResultComponent {
     this.Users = this.userService.getUsers();
   }
 }
+ 

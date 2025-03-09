@@ -1,7 +1,18 @@
+@media screen and (min-width: 992px) {
+    .footer {
+        position: static;
+    }
+  
+}
+@media screen and (max-width: 576px) {
+    .footer {
+        position: fixed;
+    }
+    
+}
 .footer {
     width: 100%;
     padding: 15px 0;
-    position: fixed;
     bottom: 0;
     left: 0;
     text-align: center;

@@ -1,0 +1,89 @@
+
+@media (min-width: 551px) and (max-width: 991px) {
+  
+    .pc{display: none;}
+    
+    .points-tables{
+        font-size: 0.7rem;
+    }
+    .table-filter{display: none;}
+}
+@media (max-width: 550px) {
+  
+    .pc{display: none;}
+    
+    .points-tables{
+        font-size: 0.6rem;
+    }
+    .h1-points-tables{
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+  
+    .headerFooterMovil{display: none;}
+    .table-filter{display: none;}
+    
+}
+/* @media screen and (max-width: 1548px) and (max-width: 991px) {
+  
+    .headerFooterMovil{display: none;}
+    .table-filter{display: none;}
+    .points-tables{
+        font-size: 0.7rem;
+    }
+    
+} */
+
+/* Contenedor principal */
+.container {
+    max-width: 100%;
+}
+
+/* Encabezado de la tabla */
+.points-tables{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #007ec7; /* Azul */
+    color: white;
+    border-radius: 20px 30px 0 0; /* Bordes redondeados arriba */
+    overflow: hidden;
+}
+
+/* Estilos para el título de la tabla */
+.points-tables th[colspan="4"] {
+    background-color: #00b7ff; /* Azul más claro */
+    font-size: 1.5rem;
+    padding: 5px;
+    text-align: center;
+}
+
+/* Encabezados */
+.points-tables thead {
+    background-color: #0099FF; /* Azul más claro */
+    font-weight: bold;
+}
+
+/* Cuerpo de la tabla */
+.points-tables t body {
+    background-color: #009eb3; /* Azul más oscuro */
+}
+
+/* Celdas */
+.points-tables th,
+.points-tables td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Líneas entre filas */
+.points-tables tbody tr {
+    border-bottom: 2px solid black;
+    box-shadow: 1px 1px 5px #000000;
+}
+
+/* Evitar línea extra en la última fila */
+.points-tables tbody tr:last-child {
+    border-bottom: none;
+}

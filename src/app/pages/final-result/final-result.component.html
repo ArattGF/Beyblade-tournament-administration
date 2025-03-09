@@ -1,19 +1,15 @@
 <app-header></app-header>
-<h1 class="text-center mt-3">Resultados Fianles </h1>
 
-<div class="container-sm mt-5">
-    <div class="alert" role="alert">
-        <h4 class="alert-heading"><i class="bi bi-trophy-fill"></i></h4>
-        <p>Participante Ganador</p>
-    </div>
-    <div class="alert" role="alert">
-        <h4 class="alert-heading">2'</h4>
-        <p>Participante En Segundo Lugar</p>
-    </div>
-    <div class="alert" role="alert">
-        <h4 class="alert-heading">3'</h4>
-        <p>Participante En Tercer Lugar</p>
-    </div>
+<div class="container text-center">
+  <h2 class="my-4">Resultado Final</h2>
+  
+  <div class="winners-container row">
+    <app-user-card 
+      *ngFor="let user of Users" 
+      [user]="user"
+      class="col-md-4 mb-4"
+    ></app-user-card>
+  </div>
 </div>
 
 <app-footer></app-footer>

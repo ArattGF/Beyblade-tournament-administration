@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './new-competition.component.html',
   styleUrl: './new-competition.component.css'
 })
-export class NewCompetitionComponent {
+export class NewCompetitionComponent implements OnInit{
   tournament: any;
 
   constructor(private readonly competitionService: NewCompetitionService, private readonly router: Router) {
@@ -21,8 +21,19 @@ export class NewCompetitionComponent {
       numberOfGroups: '',
       maxParticipantsPerGroup: ''
     }
+
+    
   }
 
+  ngOnInit(): void {
+    this.competitionService.GetCurrentTournament().then(data=>{
+      if (data.tournament._id) {
+      HeaderComponent.showAlert(data.message, 'rgb(163, 245, 0)', 'black');
+      this.router.navigate(['/register'], {queryParams: {tournamentId: data.tournament._id}});
+        
+      }
+    })
+  }
 
   CreateTournament(): void {
     this.competitionService.CreateTournament(this.tournament).then((dataTournament: any) => {

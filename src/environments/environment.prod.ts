@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-production-api-url.com/api',
+  apiUrl: 'https://hidrobladers-api.vercel.app/',
   anotherVariable: 'someValue'
 };

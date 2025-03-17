@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 
 export interface User{
@@ -19,10 +21,16 @@ private users: User[]=[
   {id: 5, name:'Godzilla', points: 31},
 ]
 
-
-  constructor() { }
+  constructor(private readonly http: HttpClient) { }
 
   getUsers(): User[]{
     return this.users
   }
+
+
+  checkToken(): Promise<any>{
+    return this.http.get(environment.apiUrl).toPromise()
+
+  }
+
 }

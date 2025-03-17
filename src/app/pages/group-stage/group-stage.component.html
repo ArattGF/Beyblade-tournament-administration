@@ -5,29 +5,74 @@
 <div class="card-position-group-stage">
     <div class="card group-stage-card text-center mx-auto">
         <div class="card-body">
-            <form>
+            <form [formGroup]="battle" (submit)="startMatch()" [hidden]="canChangeStage">
+                <h1 class="text-center mt-3" *ngIf="canChangeStage">FASE DE GRUPOS COMPLETADA</h1>
+
+
                 <div class="mb-3">
                     <label class="form-label">GRUPO</label>
-                    <select class="form-select" name="" id="">
-                        <option value=""></option>
+                    <select class="form-select" name="group" id="group"
+                    formControlName="group"
+                    (change)="resetParticipants()"
+                    [class.is-invalid]="battle.get('group')?.invalid && battle.get('group')?.touched">
+                <option value="" disabled selected>Grupo</option>
+
+                <option *ngFor="let group of groups" [value]="group._id">
+                    {{ group.name }}
+                  </option>
                     </select>
                 </div>
+                <div *ngIf="battle.get('group')?.invalid && battle.get('group')?.touched" 
+                class="invalid-feedback">
+                    Selecciona el grupo
+                </div>
+
+
                 <div class="mb-3">
                     <label class="form-label">COMPETIDOR 1</label>
-                    <select class="form-select" name=""  id="">
-                        <option value=""></option>
+                    <select class="form-select" name="aParticipant" id="aParticipant"
+                    formControlName="aParticipant"
+                    (change)="replaceParticipant(1)"
+                    [class.is-invalid]="battle.get('aParticipant')?.invalid && battle.get('aParticipant')?.touched">
+                <option value="" disabled selected>Competidor 1</option>
+
+                <option *ngFor="let aParticipant of AParticipants" [value]="aParticipant._id">
+                    {{ aParticipant.name }}
+                  </option>
                     </select>
                 </div>
+                <div *ngIf="battle.get('aParticipant')?.invalid && battle.get('aParticipant')?.touched" 
+                class="invalid-feedback">
+                    Selecciona el primer participante
+                </div>
+
+
+
                 <div class="mb-3">
                     <label class="form-label">COMPETIDOR 2</label>
-                    <select class="form-select" name="" id="">
-                        <option value=""></option>
+                    <select class="form-select" name="bParticipant" id="bParticipant"
+                    formControlName="bParticipant"
+                    (change)="replaceParticipant(2)"
+                    [class.is-invalid]="battle.get('bParticipant')?.invalid && battle.get('bParticipant')?.touched">
+                <option value="" disabled selected>Competidor 2</option>
+
+                <option *ngFor="let bParticipant of BParticipants" [value]="bParticipant._id">
+                    {{ bParticipant.name }}
+                  </option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">INICIAR BATALLA</button>
+                <div *ngIf="battle.get('bParticipant')?.invalid && battle.get('bParticipant')?.touched" 
+                class="invalid-feedback">
+                    Selecciona el segundo participante
+                </div>
+                <button type="submit" class="btn btn-primary mt-3"
+                [disabled]="!battle.valid" >INICIAR BATALLA</button>
             </form>
+            <button type="submit" class="btn btn-primary mt-3"
+                    [hidden]="!canChangeStage">Comenzar las finales</button>
         </div>
     </div>
 </div>
 
 <app-footer></app-footer>
+ 

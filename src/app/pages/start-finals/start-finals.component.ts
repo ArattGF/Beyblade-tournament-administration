@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { BattleCardComponent } from '../../components/battle-card/battle-card.component';
-import { User, UserService } from '../../services/user.service';
+import { User, UserService } from '../../utils/services/user.service';
 
 
 

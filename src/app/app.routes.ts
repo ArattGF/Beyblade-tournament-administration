@@ -8,19 +8,21 @@ import { PointsTablesComponent } from './pages/points-tables/points-tables.compo
 import { RegisterComponent } from './pages/register/register.component';
 import { VerifyCombatComponent } from './pages/verify-combat/verify-combat.component';
 import { StartFinalsComponent } from './pages/start-finals/start-finals.component';
+import { authGuard } from './utils/guards/auth.guard';
 
 
 export const routes: Routes = [
+    {path: '', redirectTo: '/points-tables', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
-    {path: 'new-competition', component: NewCompetitionComponent},
-    {path: 'register', component: RegisterComponent}, 
-    {path: 'group-stage', component: GroupStageComponent},
-    {path: 'battle-detail', component: BattleDetailComponent},
-    {path: 'final-result', component: FinalResultComponent},
+    {path: 'new-competition', component: NewCompetitionComponent, canActivate: [authGuard]},
+    {path: 'register', component: RegisterComponent, canActivate: [authGuard]}, 
+    {path: 'group-stage', component: GroupStageComponent, canActivate: [authGuard]},
+    {path: 'battle-detail', component: BattleDetailComponent, canActivate: [authGuard]},
+    {path: 'final-result', component: FinalResultComponent, canActivate: [authGuard]},
     {path: 'points-tables', component: PointsTablesComponent},
-    {path: 'final', component: FinalResultComponent}, 
-    {path: 'verify-combat', component: VerifyCombatComponent},
-    {path: 'start-finals', component: StartFinalsComponent}
+    {path: 'final', component: FinalResultComponent, canActivate: [authGuard]}, 
+    {path: 'verify-combat', component: VerifyCombatComponent, canActivate: [authGuard]},
+    {path: 'start-finals', component: StartFinalsComponent, canActivate: [authGuard]}
 
 
 ];

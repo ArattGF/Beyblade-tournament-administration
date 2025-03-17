@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RegisterService } from './register.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { RegisterService } from './register.service';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
   registerForm: FormGroup;
   statesMexico =[
     'Aguascalientes',
@@ -50,7 +52,11 @@ export class RegisterComponent {
   ];
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private readonly registerService: RegisterService){
+  constructor(
+    private fb: FormBuilder, 
+    private readonly registerService: RegisterService,
+    private readonly router: Router
+  ){
     this.registerForm = this.fb.group({
       name:['', [Validators.required, Validators.minLength(3)]],
       region: ['', Validators.required]
@@ -61,7 +67,7 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.isSubmitting) return;
-
+ 
     this.isSubmitting = true;
 
     if (this.registerForm.valid) {
@@ -83,5 +89,16 @@ export class RegisterComponent {
   getTournamentID(): string{
     return new URLSearchParams(window.location.search).get('tournamentId') || '';
   }
+
+  StartGroupStage() {
+    console.log(this.getTournamentID());
+    
+    this.registerService.StartGroupStage(this.getTournamentID()).then(data =>{
+      console.log(data);
+      
+      HeaderComponent.showAlert(data.message);
+      this.router.navigate(["group-stage"], {queryParams: { tournamentId: this.getTournamentID()}})
+    })
+    }
 }
  

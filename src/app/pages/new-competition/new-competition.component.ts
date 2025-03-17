@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './new-competition.component.html',
   styleUrl: './new-competition.component.css'
 })
-export class NewCompetitionComponent implements OnInit{
+export class NewCompetitionComponent implements OnInit {
   tournament: any;
 
   constructor(private readonly competitionService: NewCompetitionService, private readonly router: Router) {
@@ -22,15 +22,17 @@ export class NewCompetitionComponent implements OnInit{
       maxParticipantsPerGroup: ''
     }
 
-    
-  }
+
+  } 
 
   ngOnInit(): void {
-    this.competitionService.GetCurrentTournament().then(data=>{
+    this.competitionService.GetCurrentTournament().then(data => {
       if (data.tournament._id) {
-      HeaderComponent.showAlert(data.message, 'rgb(163, 245, 0)', 'black');
-      this.router.navigate(['/register'], {queryParams: {tournamentId: data.tournament._id}});
-        
+
+        HeaderComponent.showAlert(data.message, 'rgb(163, 245, 0)', 'black');
+
+        this.RedirectPage(data.tournament);
+
       }
     })
   }
@@ -40,7 +42,7 @@ export class NewCompetitionComponent implements OnInit{
       HeaderComponent.showAlert(dataTournament.message, 'rgb(163, 245, 0)', 'black');
       this.competitionService.CreateGroups(dataTournament.tournamentID).then((dataGroup: any) => {
         HeaderComponent.showAlert(dataGroup.message, 'rgb(163, 245, 0)', 'black');
-        this.router.navigate(['/register'], {queryParams: {tournamentId: dataGroup.tournamentID}});
+        this.router.navigate(['/register'], { queryParams: { tournamentId: dataGroup.tournamentID } });
       }
       ).catch((error: any) => {
         HeaderComponent.showAlert(error.error, 'rgb(205, 46, 25)', 'black');
@@ -48,7 +50,33 @@ export class NewCompetitionComponent implements OnInit{
     }).catch((error: any) => {
       HeaderComponent.showAlert(error.error, 'rgb(205, 46, 25)', 'black');
 
-    }); 
+    });
+
+  }
+
+  RedirectPage(data: any): void {
+
+    let routeToRedirect = "/";
+    switch (data.status) {
+      case 'registration':
+        routeToRedirect = "register"
+        break;
+      case "group":
+        routeToRedirect = "group-stage"
+        break;
+
+      case 'finals':
+        routeToRedirect = "start-finals"
+        break;
+      default:
+        break;
+    };
+    if (routeToRedirect != '/') {
+      
+      this.router.navigate([routeToRedirect], { queryParams: { tournamentId: data._id } });
+    }else{
+      HeaderComponent.showAlert("Ha sucedido un error.", "red", "black")
+    }
 
   }
 } 

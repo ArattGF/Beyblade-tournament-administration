@@ -8,14 +8,20 @@ import { environment } from '../../../environments/environment';
 export class RegisterService {
 
 
-  apiUrl = environment.apiUrl + 'participant/';
+  apiParticipantUrl = environment.apiUrl + 'participant/';
+  apiTournamentUrl = environment.apiUrl + 'tournament/';
 
   constructor(private readonly http: HttpClient) { }
 
-
-
   CreateParticipant(participantData: {name: string, region: string, tournamentID: string}): Promise<any>{
-    return this.http.post(this.apiUrl + 'create', participantData).toPromise()
+    return this.http.post(this.apiParticipantUrl + 'create', participantData).toPromise()
+    .catch(error =>{
+      throw error;
+    });
+  }
+
+  StartGroupStage(tournamentID: string): Promise<any>{
+    return this.http.post(this.apiTournamentUrl + 'start', {tournamentID: tournamentID}, {params: { stage: 'group'}}).toPromise()
     .catch(error =>{
       throw error;
     });

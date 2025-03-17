@@ -30,7 +30,7 @@ export class LoginComponent {
       localStorage.setItem('bearerToken', data.token);
       localStorage.setItem('user', data.user.user);
       localStorage.setItem('isAdmin', data.user.IsAdmin);
-
+      
       // Redirect to the home page
       this.router.navigate(['/new-competition'], { state: {message: data.message}  });
     }).catch((error: any) => {

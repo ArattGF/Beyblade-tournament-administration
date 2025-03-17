@@ -57,8 +57,8 @@
                         <tr *ngFor="let participant of group.participants; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ participant.name }}</td>
-                            <td>{{ participant.totalPoints }}</td>
-                            <td>{{ participant.sets }}</td>
+                            <td>{{ participant.totalPoints || participant.groupPoints || 0}}</td>
+                            <td>{{ participant.sets || participant.totalSets || 0}}</td>
                             <td>{{ participant.victories }}</td>
                           </tr>
                     </tbody>

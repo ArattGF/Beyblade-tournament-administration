@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { User } from '../../utils/services/user.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,5 +8,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-card.component.css'
 })
 export class UserCardComponent {
-  @Input() user!: User;
+  @Input() user!: any;
 }

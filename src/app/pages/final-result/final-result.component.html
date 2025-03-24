@@ -4,11 +4,27 @@
   <h2 class="my-4">Resultado Final</h2>
   
   <div class="winners-container row">
-    <app-user-card 
-      *ngFor="let user of Users" 
-      [user]="user"
+    <h1>primero</h1>
+    <app-user-card  
+    [user]="first"
+    class="col-md-4 mb-4"
+    ></app-user-card>
+    <h1>segundo</h1>
+    <app-user-card  
+    [user]="second"
+    class="col-md-4 mb-4"
+    ></app-user-card>
+    <h1>tercero</h1>
+    <app-user-card  
+    [user]="third"
+    class="col-md-4 mb-4"
+    ></app-user-card>
+    <h1>cuarto</h1>
+    <app-user-card  
+      [user]="fourth"
       class="col-md-4 mb-4"
     ></app-user-card>
+
   </div>
 </div>
 

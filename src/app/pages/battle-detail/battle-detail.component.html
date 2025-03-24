@@ -3,17 +3,17 @@
 <div class="card battle-card text-center mx-auto">
   <div class="card-body">
     <h3 class="title">DETALLE DE BATALLA</h3>
-    <h4 class="group">TABLA</h4>
-    <h4 class="group">{{ group.name }}</h4>
+    <h4 class="group">{{!inFinals ? 'TABLA' : ''}}</h4>
+    <h4 class="group">{{ !inFinals ? group.name : getRoundName(match.round)}}</h4>
     <h5 class="set">SET {{ gameSet }}</h5>
     <form [formGroup]="setForm" (submit)="sendSet()">
       <div class="mb-3">
-      <label class="form-label">{{match.participants[0].name}}</label>
+      <label class="form-label">{{participant1Name}}</label>
       <input type="number" formControlName="participant1Points" class="form-control competitor" placeholder="0">
       </div>
 
       <div class="mb-3">
-      <label class="form-label">{{match.participants[1].name}}</label>
+      <label class="form-label">{{participant2Name}}</label>
       <input type="number" formControlName="participant2Points" class="form-control competitor" placeholder="0">
       </div>
       <button class="btn btn-primary w-100" type="submit">TERMINAR SET</button>

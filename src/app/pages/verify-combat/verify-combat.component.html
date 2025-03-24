@@ -3,10 +3,20 @@
   <h2 class="my-4"> Corrobora los participantes de esta batalla</h2>
   
   <div class="combatients-container row text-center">
-    <app-user-card [user]="Users[1]"></app-user-card>
+    <app-user-card [user]="participant1Object"></app-user-card>
     <H1>VS</H1>
-    <app-user-card [user]="Users[0]"></app-user-card>
+    <app-user-card [user]="participant2Object"></app-user-card>
+  
+    <div class="container mt-5 text-center">
+      <button 
+          class="btn btn-primary w-100"
+          (click)="StartCombat()">
+            Comenzar combate
+        </button>
+    </div>
+  
   </div>
+  
 </div>
 
 <app-footer></app-footer> 

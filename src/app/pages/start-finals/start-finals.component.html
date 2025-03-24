@@ -1,11 +1,12 @@
 <app-header></app-header>
 
 <div class="container text-center">
-  <h2 class="my-4">Corrobora los participantes de esta batalla</h2>
+  <h2 class="my-4">selecciona el combate</h2>
 
-  <div class="combatients-container row text-center">
-    <app-battle-card [user1]="Users[0]" [user2]="Users[1]"></app-battle-card>
-  </div>
+  <div class="combatients-container row text-center mt-4"  *ngFor="let participant of Participants">
+      <app-battle-card [user1]="participant.participant1" [user2]="participant.participant2" [match]="participant.id" [round]="getRoundName(participant.round, participant.isThirdPlaceMatch)"></app-battle-card>
+    </div>
+
   
 </div>
 

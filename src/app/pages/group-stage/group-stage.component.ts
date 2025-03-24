@@ -17,6 +17,7 @@ export class GroupStageComponent {
 
 
 
+
   battle: FormGroup;
 
   groups: any = []
@@ -27,6 +28,8 @@ export class GroupStageComponent {
   BParticipantSelected: any = {};
 
   canChangeStage = false;
+
+  tournamentID: string = '';
 
 
   constructor(
@@ -42,11 +45,28 @@ export class GroupStageComponent {
 
     
     groupStageService.GetAllTables().then(data => {
+
+      
       this.groups = [];
+      let changeStage = true
+      this.tournamentID = data.tournamentId
+
+
       data.groups.forEach((group: any): void => {
+
+        if ( !group.groupStageEnded) {
+          changeStage = false
+        }
         this.groups.push({ _id: group._id, name: group.name })
 
       });
+      this.canChangeStage = changeStage
+      
+
+      if (data.tournamentStage === 'finals') {
+        this.canChangeStage = true;
+      }
+
     })  }
 
 
@@ -92,6 +112,16 @@ export class GroupStageComponent {
       this.router.navigate(['/battle-detail'], {queryParams: {match: data.match}});   
     })
   }
+
+
+  startFinals() {
+    this.groupStageService.startFinals(this.tournamentID).then((data: any)=>{
+      console.log(data);
+      
+      HeaderComponent.showAlert(data.message);
+      this.router.navigate(['/start-finals'], {queryParams: {tournamentId: this.tournamentID}});   
+    })
+    }
 
 
 }

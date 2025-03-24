@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class LoginService {
       body: JSON.stringify(userData)
     })
     .then(response => {
-     
+
       if (!response.ok) {
+        HeaderComponent.showAlert("Credenciales invalidas.", "red", "black")
         throw new Error('Network response was not ok');
       }
       return response.json();

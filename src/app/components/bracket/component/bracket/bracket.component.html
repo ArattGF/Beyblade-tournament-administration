@@ -1,0 +1,66 @@
+<div class="tournament-bracket">
+
+    <div class="bracket-container">
+    <div *ngFor="let round of rounds | array" class="round">
+      <h3 class="round-title">{{ getRoundName(round) }}</h3>
+      
+      <div class="matches">
+        <div *ngFor="let match of getMatchesByRound(round)" class="match-container">
+          <div class="match" [class.has-winner]="match.winner">
+            <div class="participant" 
+                 [class.winner]="match.winner?.name === match.participant1?.name"
+                 [class.bye]="match.participant1?.isBye">
+              @if (match.participant1) {
+                <span>{{ match.participant1.name }}</span>
+              } @else {
+                <span>Por decidir</span>
+              }
+            </div>
+            
+            <div class="participant"
+                 [class.winner]="match.winner?.name === match.participant2?.name"
+                 [class.bye]="match.participant2?.isBye"
+                 >
+              @if (match.participant2) {
+                <span>{{ match.participant2.name }}</span>
+              } @else {
+                <span>Por decidir</span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Third Place Match -->
+    @if (thirdPlaceMatch; as thirdPlaceMatch) { 
+      <div class="round third-place-round">
+        <h3 class="round-title">Tercer Lugar</h3>
+        
+        <div class="matches">
+          <div class="match-container">
+            <div class="match third-place-match" [class.has-winner]="thirdPlaceMatch.winner">
+              <div class="participant" 
+                   [class.winner]="thirdPlaceMatch.winner?.name === thirdPlaceMatch.participant1?.name">
+                @if (thirdPlaceMatch.participant1) {
+                  <span>{{ thirdPlaceMatch.participant1.name }}</span>
+                } @else {
+                  <span>Por decidir</span>
+                }
+              </div>
+              
+              <div class="participant"
+                   [class.winner]="thirdPlaceMatch.winner?.name === thirdPlaceMatch.participant2?.name">
+                @if (thirdPlaceMatch.participant2) {
+                  <span>{{ thirdPlaceMatch.participant2.name }}</span>
+                } @else {
+                  <span>Por decidir</span>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -2,6 +2,10 @@
 <!-- Header de  Movil-->
 <app-header class="headerFooterMovil"></app-header>
 
+<div class="container mt-5" [hidden]="!infinals">
+    <app-bracket [participants]="participants" [tournamentId]="tournamentID"></app-bracket>
+</div>
+
 <div class="container mt-5">
     <h1 class="text-center h1-points-tables">Tabla de Posiciones</h1>
     <!-- Filtros para las tablas Movil -->

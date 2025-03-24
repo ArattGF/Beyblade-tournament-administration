@@ -1,0 +1,135 @@
+.tournament-bracket {
+  margin: 20px;
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007ec7; /* Azul principal */
+  }
+  
+  .bracket-container {
+    display: flex;
+    justify-content: space-around;
+    overflow-x: auto;
+    padding: 20px 0;
+
+  }
+  
+  .round {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    margin: 0 10px;
+    
+    .round-title {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: #ffffff;
+      background-color: #0099FF; /* Azul de encabezados */
+      padding: 5px;
+      border-radius: 4px;
+    }
+    
+    .matches {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100%;
+    }
+  }
+  
+  .third-place-round {
+    border-left: 2px solid #007ec7; /* Borde azul más grueso */
+    padding-left: 15px;
+    
+    .round-title {
+      background-color: #00b7ff; /* Azul claro del título */
+      color: #000000; /* Texto negro para mejor contraste */
+    }
+    
+    .match {
+      border-color: #007ec7;
+      background-color: #0099FF; /* Azul de encabezados */
+    }
+  }
+  
+  .match-container {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .match {
+    width: 180px;
+    border: 2px solid #007ec7; /* Borde azul */
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #e6f7ff; /* Fondo azul muy claro */
+    
+    &.has-winner {
+      .participant.winner {
+        background-color: #A3F500; /* Verde brillante para ganadores */
+        color: #000000;
+        font-weight: bold;
+      }
+    }
+    
+    &.third-place-match {
+      border-color: #00b7ff; /* Azul claro */
+      
+      .participant.winner {
+        background-color: #00b7ff; /* Azul claro para tercer lugar */
+        color: #000000;
+      }
+    }
+  }
+  
+  .participant {
+    padding: 10px;
+    background-color: #e6f7ff; /* Fondo azul claro */
+    border-bottom: 1px solid #007ec7; /* Borde azul */
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: #000000; /* Texto negro */
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &:hover {
+      background-color: #96bdd6; /* Azul hover más intenso */
+    }
+    
+    &.bye {
+      color: #666666;
+      font-style: italic;
+      background-color: #f0f9ff; /* Azul muy claro para BYE */
+      cursor: not-allowed;
+    }
+    
+    &.winner {
+      background-color: #A3F500; /* Verde para ganadores */
+      color: #000000;
+    }
+  }
+}
+
+/* Mantenemos los media queries originales */
+@media (min-width: 551px) and (max-width: 991px) {
+  .pc{display: none;}
+  .points-tables{ font-size: 0.7rem; }
+  .table-filter{display: none;}
+}
+
+@media (max-width: 550px) {
+  .pc{display: none;}
+  .points-tables{ font-size: 0.6rem; }
+  .h1-points-tables{ display: none; }
+}
+
+@media (min-width: 992px) {
+  .headerFooterMovil{display: none;}
+  .table-filter{display: none;}
+}

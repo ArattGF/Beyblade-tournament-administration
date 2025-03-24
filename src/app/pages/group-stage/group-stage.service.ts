@@ -11,6 +11,7 @@ export class GroupStageService {
   groupApiUrl: string = environment.apiUrl + "group/"
   matchApiUrl: string = environment.apiUrl + "match/"
   participantApiUrl: string = environment.apiUrl + "participant/"
+  tournamentApiUrl: string = environment.apiUrl + "tournament/"
 
   constructor(private readonly http: HttpClient) { }
 
@@ -23,8 +24,6 @@ export class GroupStageService {
   }
 
   GetAvailableParticipants(groupID: string, participantID: string): Promise<any> {
-    console.log(groupID, participantID);
-
     return this.http.get(this.matchApiUrl + 'participants-availables', { params: { groupId: groupID, participantId: participantID } }).toPromise()
   }
 
@@ -32,4 +31,12 @@ export class GroupStageService {
     return this.http.post(this.matchApiUrl + 'start', { participants: [battle.aParticipant, battle.bParticipant] },
       { params: { groupId: battle.group } }).toPromise()
   }
+
+
+  startFinals(tournamentID: string): Promise<any>{
+    return this.http.post(this.matchApiUrl + tournamentID +'/initialize', {params: {stage: 'finals'}}).toPromise()
+  }
+
+
+
 }

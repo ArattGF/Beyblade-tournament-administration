@@ -8,10 +8,19 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class PointsTablesService {
 
   groupApiUrl = environment.apiUrl + 'group/'
+  tournamnetapiUrl: string = environment.apiUrl + 'participant/'
 
   constructor(private readonly http: HttpClient) { }
 
   GetAllTables() : Promise<any>{
     return this.http.get(this.groupApiUrl).toPromise();
   }
+
+
+ getWinners(tournamentId: string): Promise<any>{
+  return this.http.get(this.tournamnetapiUrl + 'winners' ,{params: {tournamentId}}).toPromise()
+
+ } 
+
+
 }

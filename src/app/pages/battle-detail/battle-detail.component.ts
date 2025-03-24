@@ -22,59 +22,130 @@ export class BattleDetailComponent implements OnInit {
   group: any = {};
   match: any = {};
   gameSet: number = 1;
-  
-  
+  finals: boolean = false;
+
+
 
   constructor(
     private router: Router,
-     private readonly battleDetailService: BattleDetailService,
+    private readonly battleDetailService: BattleDetailService,
     private readonly fb: FormBuilder) {
 
-      this.setForm = fb.group({
-        
-      })
+    this.setForm = fb.group({
+
+    })
     this.setForm = fb.group({
       participant1Points: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       participant2Points: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     });
-     }
+  }
 
   ngOnInit(): void {
     this.router.routerState.root.queryParams.subscribe(params => {
-      if ( params['match']) {
-      this.match._id = params['match'];
-      this.setMatchData();
+      console.log(params);
+
+      if (params['final']) {
+        this.finals = params['final'];
+      }
+      if (params['match']) {
+        this.match._id = params['match'];
+        this.setMatchData();
       } else {
-      console.warn('No query parameters available.');
+        console.warn('No query parameters available.');
       }
     });
   }
-  
-  setMatchData(): void {
-    this.battleDetailService.GetMatchDetails(this.match._id).then((data)=>{
 
-      this.group = data.group;
-      this.match = data.match;
-      
+
+  get participant1Name(): string {
+    if (this.finals) {
+      return this.match.participant1.name
+    }
+    return this.match.participants[0]
+  }
+
+
+  get inFinals(): boolean {
+    return this.finals
+  }
+
+
+
+
+  get participant2Name(): string {
+    if (this.finals) {
+      return this.match.participant2.name
+    }
+    return this.match.participants[1]
+  }
+
+
+
+  setMatchData(): void {
+    this.battleDetailService.GetMatchDetails(this.match._id, this.finals).then((data) => {
+
+      // console.log(data);
+
+      if (this.finals) {
+        this.match = data
+
+
+      } else {
+        this.group = data.group;
+        this.match = data.match;
+
+      }
+
+
+      console.log(this.match);
+
     })
   }
 
   sendSet() {
     if (this.setForm.valid) {
-      this.battleDetailService.EndSet(this.match._id, this.setForm.value).then((data: any) =>{
+      this.battleDetailService.EndSet(!this.inFinals ? this.match._id : this.match.id, this.setForm.value, this.inFinals).then((data: any) => {
+        console.log(data);
   
-        const winner = this.match.participants.find((participant: any) => participant._id === data.addedSet.winner);
-        console.log('Winner:', winner);
-        HeaderComponent.showAlert(data.matchStatus === 'completed' ? `Ganador del match ${winner.name}` :`Ganador del set ${winner.name}`);
-        this.setForm.reset();
-
-        if (data.matchStatus === 'completed') {
-      this.router.navigate(["group-stage"], {queryParams: { tournamentId: this.group.tournament._id}})
-          
+        // Obtener el ganador del set
+        let winner;
+        if (this.inFinals) {
+          // Para finales, los participantes están en participant1 y participant2
+          winner = data.addedSet.winner._id === this.match.participant1._id ? this.match.participant1 : this.match.participant2;
+        } else {
+          // Para no finales, los participantes están en participants
+          winner = this.match.participants.find((participant: any) => participant._id === data.addedSet.winner._id);
         }
+  
+        console.log('Winner:', winner);
+  
+        // Mostrar alerta
+        HeaderComponent.showAlert(data.matchStatus === 'completed' ? `Ganador del match ${winner.name}` : `Ganador del set ${winner.name}`);
+        this.setForm.reset();
+  
+        // Redirigir si el match está completado
+        if (data.matchStatus === 'completed') {
+          if (!this.inFinals) {
+            this.router.navigate(["group-stage"], { queryParams: { tournamentId: this.group.tournament._id } });
+          } else {
+            this.router.navigate(['start-finals'], { queryParams: { tournamentId: this.match.tournamentId } });
+          }
+        }
+  
         this.gameSet++;
-      })
+      }).catch((error) => {
+        console.error('Error al enviar el set:', error);
+        HeaderComponent.showAlert('Error al enviar el set. Inténtalo de nuevo.');
+      });
     }
-    }
+  }
+
+
+
+  getRoundName(round: number): string {
+    const roundNames = ['Cuartos de final', 'Semifinal', 'Final'];
+    return roundNames[round - roundNames.length + 2] || `Eliminatoria ${round}`;
+  }
+
 }
 

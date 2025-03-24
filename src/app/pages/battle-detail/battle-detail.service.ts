@@ -11,11 +11,23 @@ export class BattleDetailService {
   constructor(private readonly http: HttpClient) { }
 
 
-  GetMatchDetails(matchID: string): Promise<any>{
-    return this.http.get(this.matchApiUrl, {params: {matchId: matchID}}).toPromise()
+  GetMatchDetails(matchID: string, finals: boolean): Promise<any>{
+
+    if (finals) {
+      
+      return this.http.get(this.matchApiUrl + 'finals/', {params: {matchId: matchID}}).toPromise()
+    } else {
+      return this.http.get(this.matchApiUrl, {params: {matchId: matchID}}).toPromise()
+      
+    }
   }
 
-  EndSet(matchID: string, points:any): Promise<any>{
+  EndSet(matchID: string, points:any, finals: boolean): Promise<any>{
+
+    if (finals) {
+      
+      return this.http.put(this.matchApiUrl + 'finals/end-set', points, {params: {matchId: matchID}}).toPromise();
+    }
     return this.http.put(this.matchApiUrl + 'end-set', points, {params: {matchId: matchID}}).toPromise();
   }
 }

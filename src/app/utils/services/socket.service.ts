@@ -16,15 +16,7 @@ export class SocketService {
   apiUrl:string = environment.apiUrl;
 
   constructor() {
-     this.socket = io('https://hidrobladers-api.vercel.app', {
-      path: '/socket.io',
-      withCredentials: true,
-      transports: ['websocket', 'polling'],
-      extraHeaders: {
-        "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
-        "Cross-Origin-Embedder-Policy": "require-corp"
-      }
-    });
+    this.socket = io(this.apiUrl);
 
     this.socket.on('connect', () => {
       HeaderComponent.showAlert("Conexión establecida")

@@ -16,7 +16,7 @@ export class SocketService {
   apiUrl:string = environment.apiUrl;
 
   constructor() {
-    this.socket = io(this.apiUrl);
+    this.socket = io(this.apiUrl.slice(0, -1));
 
     this.socket.on('connect', () => {
       HeaderComponent.showAlert("Conexión establecida")

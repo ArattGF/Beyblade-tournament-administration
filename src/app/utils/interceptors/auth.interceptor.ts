@@ -12,9 +12,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
       const cloned = req.clone({
         
         headers: req.headers.set('Authorization', `Bearer ${token}`)
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-        .set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+
       });
 
       return next(cloned);

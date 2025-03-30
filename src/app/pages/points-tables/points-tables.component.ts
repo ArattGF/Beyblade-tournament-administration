@@ -17,8 +17,11 @@ export class PointsTablesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild('finalsBracket') finalsBracket!: ElementRef;
-
+  
   tables: any = [];
+  filteredTables: any = [];
+  selectedTables: Set<string> = new Set();
+
   tournamentName: string = ''
   tournamentID: string = ''
 
@@ -94,6 +97,8 @@ constructor(
       this.tournamentID = data.tournamentId
       this.infinals = data.tournamentStage === 'finals'
 
+      this.filteredTables = [...this.tables]; // Inicialmente mostrar todas las tablas
+       
       
       this.pointsTablesService.getWinners(this.tournamentID).then((data: any)=>{
 
@@ -114,6 +119,30 @@ constructor(
       console.log(error);
      });
   }
+
+  toggleTableFilter(tableName: string, event: Event): void {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+        this.selectedTables.add(tableName);
+    } else {
+        this.selectedTables.delete(tableName);
+    }
+}
+
+updateSelectedTables(event: Event): void {
+  const selectElement = event.target as HTMLSelectElement;
+  const selectedOptions = Array.from(selectElement.selectedOptions).map(option => option.value);
+
+  this.selectedTables = new Set(selectedOptions);
+}
+
+applyFilters(): void {
+  if (this.selectedTables.size > 0) {
+      this.filteredTables = this.tables.filter((table:any) => this.selectedTables.has(table.name));
+  } else {
+      this.filteredTables = [...this.tables]; // Mostrar todas las tablas si no hay filtros
+  }
+}
   private listenForUpdates() {
     this.socketService.onPlayersUpdate((playerUpdate) => {
       this.LoadData()

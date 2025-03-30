@@ -2,17 +2,17 @@
 <!-- Header de  Movil-->
 <app-header class="headerFooterMovil"></app-header>
 
-<div class="container mt-5" [hidden]="!infinals">
+<div class="container mt-5" [hidden]="!infinals" #finalsBracket>
     <app-bracket [participants]="participants" [tournamentId]="tournamentID"></app-bracket>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5" [hidden]="infinals" #tableContainer>
     <h1 class="text-center h1-points-tables">Tabla de Posiciones</h1>
     <!-- Filtros para las tablas Movil -->
-    <div class="table-filter mb-3">
+    <!-- <div class="table-filter mb-3">
         <h3>Filtrar tablas</h3>
         <div class="row">
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Seleccionar Competencia</label>
                     <select class="form-control" id="exampleFormControlSelect1">
@@ -24,7 +24,7 @@
                     </select> 
                 </div>
             </div> -->
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Seleccionar Grupo</label>
                     <select class="form-control" id="exampleFormControlSelect1">
@@ -35,16 +35,28 @@
                 </div>
             </div>
          </div>
-    </div>
-         
+    </div> -->
+          
     <div class="row">
-        <div *ngFor="let group of tables" class="col-md-4">
-            <div class="table-responsive">
+        <div *ngFor="let group of tables let index = index" class="col-md-4">
+            <div class="table-responsive" >
                 <table class="points-tables mb-5">
                     <thead>
                     <tr>
-                        <th colspan="5">
+                        <th colspan="4">
                             <h2 class="text-start">Grupo {{group.name}}- {{tournamentName}}</h2>
+                            
+                        </th>
+                        <th colspan="1">
+                            <h2 class="text-center fav-icon">
+
+                                <button (click)="group.fav = !group.fav; setFav(index)">
+
+                                    <i class="bi" [ngClass]="group.fav ? 'bi-heart-fill' : 'bi-heart'"></i>
+                                </button>
+                            
+                            </h2>
+                            
                         </th>
                     </tr>
                     

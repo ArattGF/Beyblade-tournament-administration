@@ -5,6 +5,7 @@ import { UserCardComponent } from '../../components/user-card/user-card.componen
 import {UserService } from '../../utils/services/user.service';
 import { CommonModule } from '@angular/common';
 import { FinalResultService } from './final-result.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-final-result',
   imports: [HeaderComponent, FooterComponent, UserCardComponent, CommonModule],
@@ -19,7 +20,7 @@ export class FinalResultComponent {
   third: any = {}
   fourth: any = {}
 
-  constructor(private finalResultService: FinalResultService) {}
+  constructor(private finalResultService: FinalResultService, private router: Router) {}
   ngOnInit() {
     this.finalResultService.gteTop4(this.getTournamentID()).then((data: any)=>{
       console.log(data);
@@ -33,5 +34,10 @@ export class FinalResultComponent {
   getTournamentID(): string {
     return new URLSearchParams(window.location.search).get('tournamentId') || '';
   }
+
+  startTournament(): void  {
+    this.router.navigate(["/new-competition"]);
+  }
+  
 }
  

@@ -2,75 +2,72 @@
 <!-- Header de  Movil-->
 <app-header class="headerFooterMovil"></app-header>
 
-<div class="container mt-5" [hidden]="!infinals">
+<div class="container mt-5" [hidden]="!infinals" #finalsBracket>
     <app-bracket [participants]="participants" [tournamentId]="tournamentID"></app-bracket>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5" [hidden]="!infinals" #tableContainer>
     <h1 class="text-center h1-points-tables">Tabla de Posiciones</h1>
     <!-- Filtros para las tablas Movil -->
     <div class="table-filter mb-3">
         <h3>Filtrar tablas</h3>
         <div class="row">
-            <!-- <div class="col-md-6">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Seleccionar Competencia</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Competencia 1</option>
-                      <option>Competencia 2</option>
-                      <option>Competencia 3</option>
-                      <option>Competencia 4</option>
-                      <option>Competencia 5</option>
-                    </select> 
-                </div>
-            </div> -->
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Seleccionar Grupo</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Grupo A</option>
-                      <option>Grupo B</option>
-                      <option>Grupo C</option>
+                    <label for="tableFilter">Seleccionar Tablas</label>
+                    <select 
+                        id="tableFilter" 
+                        class="form-control" 
+                        multiple 
+                        (change)="updateSelectedTables($event)">
+                        <option *ngFor="let table of tables" [value]="table.name">
+                            {{ table.name }}
+                        </option>
                     </select>
                 </div>
             </div>
-         </div>
+        </div>
+        <button class="btn btn-primary mt-3" (click)="applyFilters()">Aplicar Filtros</button>
     </div>
-         
+    
     <div class="row">
-        <div *ngFor="let group of tables" class="col-md-4">
+        <div *ngFor="let group of filteredTables let index = index" class="col-md-4">
             <div class="table-responsive">
                 <table class="points-tables mb-5">
                     <thead>
-                    <tr>
-                        <th colspan="5">
-                            <h2 class="text-start">Grupo {{group.name}}- {{tournamentName}}</h2>
-                        </th>
-                    </tr>
-                    
+                        <tr>
+                            <th colspan="4">
+                                <h2 class="text-start">Grupo {{group.name}} - {{tournamentName}}</h2>
+                            </th>
+                            <th colspan="1">
+                                <h2 class="text-center fav-icon">
+                                    <button (click)="group.fav = !group.fav; setFav(index)">
+                                        <i class="bi" [ngClass]="group.fav ? 'bi-heart-fill' : 'bi-heart'"></i>
+                                    </button>
+                                </h2>
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="col">Posicion</th>
-                        <th scope="col">Competidor</th>
-                        <th scope="col">Puntos</th>
-                        <th scope="col">Sets Ganados</th>
-                        <th scope="col">Victorias</th>
-                    </tr>
-                    <tr>
+                        <tr>
+                            <th scope="col">Posicion</th>
+                            <th scope="col">Competidor</th>
+                            <th scope="col">Puntos</th>
+                            <th scope="col">Sets Ganados</th>
+                            <th scope="col">Victorias</th>
+                        </tr>
                         <tr *ngFor="let participant of group.participants; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ participant.name }}</td>
-                            <td>{{ participant.totalPoints || participant.groupPoints || 0}}</td>
-                            <td>{{ participant.sets || participant.totalSets || 0}}</td>
+                            <td>{{ participant.totalPoints || participant.groupPoints || 0 }}</td>
+                            <td>{{ participant.sets || participant.totalSets || 0 }}</td>
                             <td>{{ participant.victories }}</td>
-                          </tr>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-      
     
 </div>
 

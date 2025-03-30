@@ -1,14 +1,17 @@
 
-@media (min-width: 551px) and (max-width: 991px) {
+@media (min-width: 1200px) {
   
     .pc{display: none;}
     
-    .points-tables{
+    /* .points-tables{
         font-size: 0.7rem;
-    }
+    } */
     .table-filter{display: none;}
+
+    .fav-icon { display: none; } /* Ocultar fav-icon en pantallas grandes */
+
 }
-@media (max-width: 550px) {
+@media (max-width: 1200px) {
   
     .pc{display: none;}
     
@@ -18,6 +21,8 @@
     .h1-points-tables{
         display: none;
     }
+
+
 }
 
 @media (min-width: 992px) {
@@ -52,12 +57,25 @@
 }
 
 /* Estilos para el título de la tabla */
-.points-tables th[colspan="4"] {
+.points-tables th[colspan="4"],
+.points-tables th[colspan="1"] {
     background-color: #00b7ff; /* Azul más claro */
     font-size: 1.5rem;
     padding: 5px;
     text-align: center;
 }
+
+/* Estilos para elk botón de favoritos */
+.points-tables th button{
+    background-color: #00b7ff; /* Azul más claro */
+    color: white;
+    border: none;
+    size: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 
 /* Encabezados */
 .points-tables thead {

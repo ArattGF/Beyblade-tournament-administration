@@ -52,7 +52,7 @@ export class BracketComponent implements OnInit, OnChanges{
 
   ngOnInit(): void {
     this.initializeBracket();
-    console.log("ngOnInit");
+
     
    
     
@@ -65,11 +65,7 @@ export class BracketComponent implements OnInit, OnChanges{
       this.cdr.markForCheck();
       
     }
-    console.log(this.participants);
-    
-    console.log(this.matches());
-    console.log(this.thirdPlaceMatch);
-    
+
 
   
   }
@@ -84,7 +80,6 @@ this.bracketService.getBracket(this.tournamentId).then ((data: any)=>{
   this.rounds = data.matchlist.reduce((max: any, match: any) => {
     return match.round > max ? match.round : max;
   }, 0);
-  console.log(data);
   
 })
   }

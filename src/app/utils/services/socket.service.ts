@@ -16,7 +16,10 @@ export class SocketService {
   apiUrl:string = environment.apiUrl;
 
   constructor() {
-    this.socket = io(this.apiUrl.slice(0, -1));
+    this.socket = io(this.apiUrl.slice(0, -1),{
+      withCredentials: true, // Asegúrate de que esto esté habilitado si usas cookies o encabezados de autenticación
+      transports: ["polling", "websocket"],
+    });
 
     this.socket.on('connect', () => {
       HeaderComponent.showAlert("Conexión establecida")

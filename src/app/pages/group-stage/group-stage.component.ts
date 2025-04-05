@@ -46,6 +46,7 @@ export class GroupStageComponent {
     
     groupStageService.GetAllTables().then(data => {
 
+      console.log(data);
       
       this.groups = [];
       let changeStage = true
@@ -97,6 +98,8 @@ export class GroupStageComponent {
   replaceParticipant(participantNumber: number) {
     this.groupStageService.GetAvailableParticipants(this.battle.value.group, participantNumber === 1 ? this.battle.value.aParticipant: this.battle.value.bParticipant)
     .then(data =>{
+      console.log(data);
+      
       if(participantNumber == 1){
         this.BParticipants = data.participants;
       }else{

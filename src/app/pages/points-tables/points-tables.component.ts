@@ -87,6 +87,8 @@ constructor(
 
   LoadData(): void{
     this.pointsTablesService.GetAllTables().then(data =>{
+      console.log(data);
+      
       data.groups.forEach((group: any) => {
         group.fav = false;
       })

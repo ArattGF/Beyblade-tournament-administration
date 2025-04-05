@@ -61,7 +61,7 @@ export class BattleDetailComponent implements OnInit {
     if (this.finals) {
       return this.match.participant1.name
     }
-    return this.match.participants[0]
+    return this.match.participants[0].name
   }
 
 
@@ -76,7 +76,7 @@ export class BattleDetailComponent implements OnInit {
     if (this.finals) {
       return this.match.participant2.name
     }
-    return this.match.participants[1]
+    return this.match.participants[1].name
   }
 
 
@@ -84,7 +84,7 @@ export class BattleDetailComponent implements OnInit {
   setMatchData(): void {
     this.battleDetailService.GetMatchDetails(this.match._id, this.finals).then((data) => {
 
-      // console.log(data);
+      console.log(data);
 
       if (this.finals) {
         this.match = data
@@ -114,11 +114,13 @@ export class BattleDetailComponent implements OnInit {
           winner = data.addedSet.winner._id === this.match.participant1._id ? this.match.participant1 : this.match.participant2;
         } else {
           // Para no finales, los participantes están en participants
-          winner = this.match.participants.find((participant: any) => participant._id === data.addedSet.winner._id);
+          winner = this.match.participants.find((participant: any) => participant._id === data.addedSet.winner);
         }
   
+       
+
         console.log('Winner:', winner);
-  
+        
         // Mostrar alerta
         HeaderComponent.showAlert(data.matchStatus === 'completed' ? `Ganador del match ${winner.name}` : `Ganador del set ${winner.name}`);
         this.setForm.reset();

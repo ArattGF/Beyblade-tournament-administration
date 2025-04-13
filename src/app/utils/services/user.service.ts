@@ -9,6 +9,8 @@ import { environment } from '../../../environments/environment';
 export class UserService {
   
 
+  private readonly apiUrl = environment.apiUrl;
+  
   constructor(private readonly http: HttpClient) { }
 
 

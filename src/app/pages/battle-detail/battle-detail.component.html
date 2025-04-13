@@ -16,7 +16,13 @@
       <label class="form-label">{{participant2Name}}</label>
       <input type="number" formControlName="participant2Points" class="form-control competitor" placeholder="0">
       </div>
-      <button class="btn btn-primary w-100" type="submit">TERMINAR SET</button>
+      <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#confirmPoints">TERMINAR SET</a>
+    
+      <div class="modal fade" id="confirmPoints" tabindex="-1" aria-labelledby="confirmPoints" aria-hidden="true">
+       <app-confirm-points [set]="gameSet" [participant1]="participant1ForConfirm" [participant2]="participant2ForConfirm"></app-confirm-points>
+      </div>
+    
+    
     </form>
    
 

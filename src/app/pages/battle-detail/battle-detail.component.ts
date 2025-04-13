@@ -6,11 +6,12 @@ import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BattleDetailService } from './battle-detail.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ConfirmPointsComponent } from "../../components/confirm-points/confirm-points.component";
 
 
 @Component({
   selector: 'app-battle-detail',
-  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule, ReactiveFormsModule, ConfirmPointsComponent],
   templateUrl: './battle-detail.component.html',
   styleUrl: './battle-detail.component.css'
 })
@@ -79,6 +80,33 @@ export class BattleDetailComponent implements OnInit {
     return this.match.participants[1].name
   }
 
+
+  get participant1ForConfirm(): any {
+    let participant: any = {}
+    if (this.finals) {
+      participant.name = this.match.participant1.name
+    }else{
+      
+      participant.name =this.match.participants[0].name
+    }
+
+    participant.points = this.setForm.value.participant1Points
+
+    return participant
+  }
+  get participant2ForConfirm(): any {
+    let participant: any = {}
+    if (this.finals) {
+      participant.name = this.match.participant2.name
+    }
+    else{
+      participant.name = this.match.participants[1].name
+    }
+
+    participant.points = this.setForm.value.participant2Points
+
+    return participant
+  }
 
 
   setMatchData(): void {

@@ -33,8 +33,16 @@ export class SocketService {
 
    onSetsUpdate(callback: (groupUpdated: any) => void) {
     this.socket.on('update-set', callback)
-
   }
+
+  onUpdateBracket(callback: (groupUpdated: any) => void) {
+    this.socket.on('update-bracket', callback)
+  }
+
+  onInitializeBracket(callback: (groupUpdated: any) => void) {
+    this.socket.on('initialize-bracket', callback)
+  }
+
    disconnect() {
     this.socket.disconnect();
   }

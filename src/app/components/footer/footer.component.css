@@ -2,11 +2,12 @@
     .footer {
         position: static;
     }
-  
+    
 }
 @media screen and (max-width: 576px) {
     .footer {
-        position: fixed;
+        /* position: fixed; */
+        padding-top: 4rem;
     }
     
 }

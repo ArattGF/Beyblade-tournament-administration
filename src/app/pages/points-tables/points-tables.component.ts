@@ -117,7 +117,7 @@ constructor(
         
       });
 
-     }).catch(error =>{
+     }).catch(error =>{ 
       console.log(error);
      });
   }
@@ -150,6 +150,8 @@ applyFilters(): void {
       this.LoadData()
       // this.tournamentName = playerUpdate.tournamentName
     });
+
+
     this.socketService.onSetsUpdate((groupUpdated) =>{
 
       const groupIndex = this.tables.findIndex((group: any) => group.name === groupUpdated.name);

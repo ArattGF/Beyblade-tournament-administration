@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, Input, OnInit, OnChanges, signal, SimpleC
 import { ArrayPipe } from '../../pipes/array.pipe';
 import { HostListener } from '@angular/core';
 import { BracketService } from '../../services/bracket.service';
+import { SocketService } from '../../../../utils/services/socket.service';
 
 interface Participant {
   _id: string;
@@ -47,11 +48,14 @@ export class BracketComponent implements OnInit, OnChanges{
 
 
   constructor(private cdr: ChangeDetectorRef,
-    private readonly bracketService: BracketService
+    private readonly bracketService: BracketService,
+    private readonly socketService: SocketService
   ) {}
 
   ngOnInit(): void {
     this.initializeBracket();
+    this.listenForUpdates();
+    
 
     
    
@@ -59,6 +63,23 @@ export class BracketComponent implements OnInit, OnChanges{
 
   }
 
+  private listenForUpdates() {
+    this.socketService.onUpdateBracket((playerUpdate) => {
+      console.log("update-bracket", playerUpdate);
+
+      this.initializeBracket();
+
+      // this.tournamentName = playerUpdate.tournamentName
+    });
+
+    this.socketService.onInitializeBracket((playerUpdate) => {
+      console.log(playerUpdate);
+      
+      this.initializeBracket();
+
+      // this.tournamentName = playerUpdate.tournamentName
+    });
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['participants'] && this.participants?.length > 0) {
       this.initializeBracket();
@@ -72,8 +93,10 @@ export class BracketComponent implements OnInit, OnChanges{
 
 
   initializeBracket(): void { 
-this.bracketService.getBracket(this.tournamentId).then ((data: any)=>{
 
+this.bracketService.getBracket(this.tournamentId).then ((data: any)=>{
+  console.log(data);
+  
 
   this.matches.set(data.matchlist);
   this.thirdPlaceMatch = data.thirdplacematch;

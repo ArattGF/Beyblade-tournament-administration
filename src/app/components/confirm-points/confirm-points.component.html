@@ -1,0 +1,22 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header bg-black">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar el resultado de la batalla</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body bg-black">
+
+      <h5>Resultado del set {{outSet}}</h5>
+
+      <p>Participante <strong> {{nameOfParticipant1}} </strong>: {{pointsOfParticipant1}} puntos </p>
+      <p>Participante <strong> {{nameOfParticipant2}} </strong>: {{pointsOfParticipant2}} puntos</p>
+
+      
+    </div>
+    <div class="modal-footer bg-black">
+      <p>¿Está seguro de que desea guardar este resultado?</p>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No guardar</button>
+      <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" type="submit">Guardar</button>
+    </div>
+  </div>
+</div>

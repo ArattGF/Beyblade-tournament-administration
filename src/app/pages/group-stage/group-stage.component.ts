@@ -30,6 +30,7 @@ export class GroupStageComponent {
   canChangeStage = false;
 
   tournamentID: string = '';
+  inTransaction: boolean = false;
 
 
   constructor(
@@ -111,20 +112,35 @@ export class GroupStageComponent {
 
   startMatch() {
     this.groupStageService.StartMatch(this.battle.value).then((data: any)=>{
+      console.log(data.match);
+      
       HeaderComponent.showAlert(data.message);
       this.router.navigate(['/battle-detail'], {queryParams: {match: data.match}});   
+    }).catch(err => {
+      console.log(err);
+      HeaderComponent.showAlert(err.error.message);
+      
     })
   }
 
 
   startFinals() {
+    this.inTransaction = true;
     this.groupStageService.startFinals(this.tournamentID).then((data: any)=>{
       console.log(data);
       
       HeaderComponent.showAlert(data.message);
       this.router.navigate(['/start-finals'], {queryParams: {tournamentId: this.tournamentID}});   
+      this.inTransaction = false;
+      
+    }).
+    catch(err => {
+      console.log(err);
+      HeaderComponent.showAlert(err.error.message);
+      this.inTransaction = false;
     })
-    }
+
+  }
 
 
 }

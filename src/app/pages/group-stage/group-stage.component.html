@@ -69,7 +69,7 @@
                 [disabled]="!battle.valid" >INICIAR BATALLA</button>
             </form>
             <button  class="btn btn-primary mt-3"
-                    [hidden]="!canChangeStage" (click)="startFinals()">Comenzar las finales</button>
+                    [hidden]="!canChangeStage" [disabled]="inTransaction" (click)="startFinals()">Comenzar las finales</button>
         </div>
     </div>
 </div>

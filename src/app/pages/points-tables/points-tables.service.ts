@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
-})
+}) 
 export class PointsTablesService {
 
   groupApiUrl = environment.apiUrl + 'group/'

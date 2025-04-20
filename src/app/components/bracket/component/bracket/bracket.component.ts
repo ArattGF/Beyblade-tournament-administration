@@ -95,8 +95,7 @@ export class BracketComponent implements OnInit, OnChanges{
   initializeBracket(): void { 
 
 this.bracketService.getBracket(this.tournamentId).then ((data: any)=>{
-  console.log(data);
-  
+
 
   this.matches.set(data.matchlist);
   this.thirdPlaceMatch = data.thirdplacematch;

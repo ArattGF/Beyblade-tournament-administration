@@ -1,24 +1,36 @@
+@media (min-width: 1201px) {
 
-@media (min-width: 1200px) {
-  
-    .pc{display: none;}
-    
+    .pc {
+        display: none;
+    }
+
     /* .points-tables{
         font-size: 0.7rem;
     } */
-    .table-filter{display: none;}
+    .table-filter {
+        display: none;
+    }
 
-    .fav-icon { display: none; } /* Ocultar fav-icon en pantallas grandes */
+    .fav-icon {
+        display: none;
+    }
+
+    /* Ocultar fav-icon en pantallas grandes */
+
 
 }
+
 @media (max-width: 1200px) {
-  
-    .pc{display: none;}
-    
-    .points-tables{
+
+    .pc {
+        display: none;
+    }
+
+    .points-tables {
         font-size: 0.6rem;
     }
-    .h1-points-tables{
+
+    .h1-points-tables {
         display: none;
     }
 
@@ -26,11 +38,17 @@
 }
 
 @media (min-width: 992px) {
-  
-    .headerFooterMovil{display: none;}
-    .table-filter{display: none;}
-    
+
+    .headerFooterMovil {
+        display: none;
+    }
+
+    .table-filter {
+        display: none;
+    }
+
 }
+
 /* @media screen and (max-width: 1548px) and (max-width: 991px) {
   
     .headerFooterMovil{display: none;}
@@ -47,27 +65,31 @@
 }
 
 /* Encabezado de la tabla */
-.points-tables{
+.points-tables {
     width: 100%;
     border-collapse: collapse;
-    background-color: #007ec7; /* Azul */
+    background-color: #007ec7;
+    /* Azul */
     color: white;
-    border-radius: 20px 30px 0 0; /* Bordes redondeados arriba */
+    border-radius: 20px 30px 0 0;
+    /* Bordes redondeados arriba */
     overflow: hidden;
 }
 
 /* Estilos para el título de la tabla */
 .points-tables th[colspan="4"],
 .points-tables th[colspan="1"] {
-    background-color: #00b7ff; /* Azul más claro */
+    background-color: #00b7ff;
+    /* Azul más claro */
     font-size: 1.5rem;
     padding: 5px;
     text-align: center;
 }
 
 /* Estilos para elk botón de favoritos */
-.points-tables th button{
-    background-color: #00b7ff; /* Azul más claro */
+.points-tables th button {
+    background-color: #00b7ff;
+    /* Azul más claro */
     color: white;
     border: none;
     size: 100%;
@@ -79,13 +101,15 @@
 
 /* Encabezados */
 .points-tables thead {
-    background-color: #0099FF; /* Azul más claro */
+    background-color: #0099FF;
+    /* Azul más claro */
     font-weight: bold;
 }
 
 /* Cuerpo de la tabla */
 .points-tables t body {
-    background-color: #009eb3; /* Azul más oscuro */
+    background-color: #009eb3;
+    /* Azul más oscuro */
 }
 
 /* Celdas */
@@ -105,3 +129,41 @@
 .points-tables tbody tr:last-child {
     border-bottom: none;
 }
+
+
+
+/* points-tables.component.css */
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+    min-height: 500px;
+  }
+  
+  .table-item {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  @media (max-width: 992px) {
+    .tables-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .table-item {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
